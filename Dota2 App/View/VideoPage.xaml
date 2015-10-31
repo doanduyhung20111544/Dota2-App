@@ -1,0 +1,63 @@
+﻿<phone:PhoneApplicationPage x:Class="Dota2_App.View.VideoPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Landscape"
+                            Orientation="Landscape"
+                            mc:Ignorable="d"
+                            shell:SystemTray.IsVisible="True">
+
+    
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <Grid.Resources>
+            <Storyboard x:Name="slider_sb">
+                <DoubleAnimation Storyboard.TargetName="timelineSlider"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0"
+                                 Duration="0:0:4" />
+            </Storyboard>
+            <Storyboard x:Name="image_sb">
+                <DoubleAnimation Storyboard.TargetName="center_image"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0"
+                                 Duration="0:0:0.3"/>
+            </Storyboard>
+        </Grid.Resources>
+        <MediaElement x:Name="video_element"
+                      Tap="video_element_Tap"
+                      MediaOpened="video_element_MediaOpened"
+                      MediaEnded="video_element_MediaEnded"/>
+        <Image x:Name="center_image"
+               Width="150"
+               Height="150"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Opacity="0"
+               Tap="center_image_Tap" />
+        <Slider x:Name="timelineSlider"
+                VerticalAlignment="Bottom"
+                Height="80"
+                Width="500"
+                Foreground="#FF001FE5"
+                BorderBrush="#FFE80E0E"
+                HorizontalAlignment="Center"
+                ValueChanged="timelineSlider_ValueChanged"
+                MouseEnter="timelineSlider_MouseEnter"
+                MouseLeave="timelineSlider_MouseLeave"
+                Tap="timelineSlider_Tap"
+                Opacity="0" />
+       
+    </Grid>
+
+</phone:PhoneApplicationPage>
