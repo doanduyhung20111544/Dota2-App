@@ -13,7 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"
-                            Orientation="Landscape"
+                            Orientation="Portrait"
                             shell:SystemTray.IsVisible="True">
 
     
@@ -65,7 +65,7 @@
         <TextBlock x:Name="channelname_textblock"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Margin="0,10,0,0"
+                   Margin="0,10,80,0"
                    Text="{Binding}"
                    FontSize="36"
                    TextAlignment="Center"
@@ -73,6 +73,11 @@
                    Foreground="White"
                    FontWeight="Bold"
                    IsHitTestVisible="False" />
+        <Image Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Margin="405,5,5,5"
+               Source="/View/settings.png"
+               Tap="Image_Tap" />
 
         <phone:LongListSelector x:Name="gridlist_gridview"
                                 Grid.Column="0"
@@ -193,7 +198,7 @@
 
             </Grid>
         </Border>
-
+    
 
     </Grid>
 </phone:PhoneApplicationPage>

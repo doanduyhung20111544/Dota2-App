@@ -56,5 +56,11 @@ namespace Dota2_App
 
             }
         }
+
+        private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+            NavigationService.Navigate(new Uri("/View/ChangeChannel.xaml", UriKind.Relative));
+        }
     }
 }

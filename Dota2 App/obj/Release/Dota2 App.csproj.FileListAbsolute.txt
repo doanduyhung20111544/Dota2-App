@@ -112,3 +112,6 @@ c:\users\doanduyhung\documents\visual studio 2013\Projects\Dota2 App\Dota2 App\o
 c:\users\doanduyhung\documents\visual studio 2013\Projects\Dota2 App\Dota2 App\obj\Release\Dota2 App.dll
 c:\users\doanduyhung\documents\visual studio 2013\Projects\Dota2 App\Dota2 App\obj\Release\Dota2 App.pdb
 c:\users\doanduyhung\documents\visual studio 2013\Projects\Dota2 App\Dota2 App\obj\Release\XapCacheFile.xml
+C:\Users\doanduyhung\Documents\Visual Studio 2013\Projects\Dota2 App\Dota2 App\obj\Release\Dota2 App.csprojResolveAssemblyReference.cache
+C:\Users\doanduyhung\Documents\Visual Studio 2013\Projects\Dota2 App\Dota2 App\obj\Release\View\ChangeChannel.g.cs
+C:\Users\doanduyhung\Documents\Visual Studio 2013\Projects\Dota2 App\Dota2 App\Bin\Release\channel.txt

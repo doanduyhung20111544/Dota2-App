@@ -11,6 +11,7 @@ using MyToolkit.Multimedia;
 using System.Windows.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Dota2_App.Model;
 
 
 namespace Dota2_App.View
@@ -20,7 +21,7 @@ namespace Dota2_App.View
 
         private DispatcherTimer timer;
         private bool _sliderpressed = false;
-
+        private string id;
         public VideoPage()
         {
             
@@ -35,10 +36,12 @@ namespace Dota2_App.View
             SystemTray.IsVisible = false;
             base.OnNavigatedTo(e);
             string msg = "";
-            string id = "";
             if (NavigationContext.QueryString.TryGetValue("msg", out msg)) id = msg;
             System.Diagnostics.Debug.WriteLine("----------------" + id);
-            var url = await YouTube.GetVideoUriAsync(id, YouTubeQuality.Quality480P);
+            //YoutubeMethod ytb = new YoutubeMethod();
+            //await ytb.videoInfo(id);
+            //background_image.Source = new BitmapImage(new Uri(ytb.Video_Avatar, UriKind.RelativeOrAbsolute));
+            var url = await YouTube.GetVideoUriAsync(id, YouTubeQuality.Unknown);
             video_element.Source = url.Uri;
            
             
@@ -178,6 +181,25 @@ namespace Dota2_App.View
         {
                 slider_sb.Begin();
         }
+
+        private async void border_240_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var url = await YouTube.GetVideoUriAsync(id, YouTubeQuality.Unknown);
+            video_element.Source = url.Uri;
+        }
+
+        private async void border_360_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var url = await YouTube.GetVideoUriAsync(id, YouTubeQuality.QualityMedium);
+            video_element.Source = url.Uri;
+        }
+
+        private async void border_480_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var url = await YouTube.GetVideoUriAsync(id, YouTubeQuality.QualityHigh);
+            video_element.Source = url.Uri;
+        }
+
 
 
 

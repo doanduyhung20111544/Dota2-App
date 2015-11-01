@@ -34,6 +34,60 @@
                                  Duration="0:0:0.3"/>
             </Storyboard>
         </Grid.Resources>
+        <!--
+        <Image x:Name="background_image"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Source="{Binding}"
+               IsHitTestVisible="False"/>
+        <Border x:Name="border_240"
+                Background="Black"
+                CornerRadius="20"
+                Width="150"
+                Height="50"
+                Opacity="0.5"
+                Margin="289,110,289,320"
+                Tap="border_240_Tap">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="Low"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="White" />
+        </Border>
+        
+        <Border x:Name="border_360"
+                Background="Black"
+                CornerRadius="20"
+                Width="150"
+                Height="50"
+                Opacity="0.5"
+                Margin="289,222,289,208"
+                Tap="border_360_Tap">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="Medium"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="White" />
+        </Border>
+        
+        <Border x:Name="border_480"
+                Background="Black"
+                CornerRadius="20"
+                Width="150"
+                Height="50"
+                Opacity="0.5"
+                Margin="289,320,289,110"
+                Tap="border_480_Tap">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="High"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="White" />
+        </Border>
+        -->
         <MediaElement x:Name="video_element"
                       Tap="video_element_Tap"
                       MediaOpened="video_element_MediaOpened"

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
-
+using Windows.Storage;
+using System.IO;
 
 namespace Dota2_App.Model
 {
@@ -20,17 +21,31 @@ namespace Dota2_App.Model
         private string channel_avatar;
         private string channel_id;
         private string channel_title;
-        private string s = "UCDR8cvjALazMm2j9hOar8_g";
+        private string video_avatar;
+        private string s = "";
+        private string prePageToken = "";
+        private string nextPageToken = "";
         private List<VideoInfo> videochannellist = new List<VideoInfo>();
         private List<PlaylistInfo> playlistchannel = new List<PlaylistInfo>();
         private List<VideoInfo> videoplaylist = new List<VideoInfo>();
+
+        public YoutubeMethod()
+        {
+            string line;
+            System.IO.StreamReader sreader = new System.IO.StreamReader("channel.txt", true);
+            while ((line = sreader.ReadLine()) != null)
+            {
+                s = line;
+            }
+            sreader.Close();
+        }
 
         internal async Task<List<VideoInfo>> video_Channel()
         {
             var channelVideoRequest = youtube.Search.List("snippet");
             channelVideoRequest.ChannelId = s;
             channelVideoRequest.Type = "video";
-            channelVideoRequest.MaxResults = 20;
+            channelVideoRequest.MaxResults = 10;
             channelVideoRequest.Order = Google.Apis.YouTube.v3.SearchResource.ListRequest.OrderEnum.Date;
             var channelVideoResponse = await channelVideoRequest.ExecuteAsync();
             foreach (var video in channelVideoResponse.Items)
@@ -54,15 +69,14 @@ namespace Dota2_App.Model
             return videochannellist;
         }
 
-        internal async Task<List<PlaylistInfo>> playlist_Channel()
+        internal async Task<List<PlaylistInfo>> playlist_Channel(string pageToken)
         {
+            playlistchannel.Clear();
 
-            var nextPageToken = "";
-            while (nextPageToken != null)
-            {
                 var playlistChannelRequest = youtube.Playlists.List("snippet");
                 playlistChannelRequest.ChannelId = s;
-                playlistChannelRequest.PageToken = nextPageToken;
+                playlistChannelRequest.PageToken = pageToken;
+                playlistChannelRequest.MaxResults = 5;
                 var playlistChannelResponse = await playlistChannelRequest.ExecuteAsync();
 
                 foreach (var playlist in playlistChannelResponse.Items)
@@ -76,14 +90,15 @@ namespace Dota2_App.Model
                                 playlist.Id.ToString(),
                                 playlist.Snippet.Title.ToString(),
                                 String.Format("{0:MM/dd/yyyy}", playlist.Snippet.PublishedAt),
-                                new Uri(playlist.Snippet.Thumbnails.High.Url.ToString(), UriKind.RelativeOrAbsolute),
+                                new Uri(playlist.Snippet.Thumbnails.Medium.Url.ToString(), UriKind.RelativeOrAbsolute),
                                 videoPlaylistResponse.PageInfo.TotalResults
 
                             )
                         );
                 }
-                nextPageToken = playlistChannelResponse.NextPageToken;
-            }
+                if (playlistChannelResponse.PrevPageToken != null) { prePageToken = playlistChannelResponse.PrevPageToken; } else { prePageToken = ""; }
+                if (playlistChannelResponse.NextPageToken != null) { nextPageToken = playlistChannelResponse.NextPageToken; } else { nextPageToken = ""; }
+            
 
             return playlistchannel;
         }
@@ -131,6 +146,30 @@ namespace Dota2_App.Model
             channel_title = channelInfoResponse.Items[0].Snippet.Title.ToString();
         }
 
+        internal async Task change_channel_id(string s)
+        {
+            var channelInfoRequest = youtube.Channels.List("snippet");
+            channelInfoRequest.ForUsername = s;
+            var channelInfoResponse = await channelInfoRequest.ExecuteAsync();
+            var new_id = channelInfoResponse.Items[0].Id;
+
+            
+
+            using (System.IO.StreamWriter sw = new StreamWriter("channel.txt"))
+            {
+                sw.WriteLine(new_id);
+            }
+            
+        }
+
+        internal async Task videoInfo(string s)
+        {
+            var videoInfoRequest = youtube.Videos.List("snippet");
+            videoInfoRequest.Id = s;
+            var videoInfoResponse = await videoInfoRequest.ExecuteAsync();
+            video_avatar = videoInfoResponse.Items[0].Snippet.Thumbnails.Medium.Url.ToString();
+        }
+
         public string Channel_id
         {
             get { return channel_id; }
@@ -144,6 +183,23 @@ namespace Dota2_App.Model
         public string Channel_Title
         {
             get { return channel_title; }
+        }
+
+        public string Video_Avatar
+        {
+            get { return video_avatar; }
+        }
+
+        public string Pre_Page
+        {
+            get { return prePageToken; }
+            set { prePageToken = value; }
+        }
+
+        public string Next_Page
+        {
+            get { return nextPageToken; }
+            set { nextPageToken = value; }
         }
     }
 }

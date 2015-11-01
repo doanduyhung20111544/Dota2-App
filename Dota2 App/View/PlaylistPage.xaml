@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"
-                            Orientation="Landscape"
+                            Orientation="Portrait"
                             mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -34,7 +35,7 @@
                    Fill="#990E15"
                    IsHitTestVisible="False" />
         <Rectangle x:Name="botbanner"
-                   Grid.Row="2"
+                   Grid.Row="3"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Fill="#990E15"
@@ -150,6 +151,21 @@
                 </DataTemplate>
             </phone:LongListSelector.ItemTemplate>
         </phone:LongListSelector>
+
+        <Button x:Name="pre_button"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,0,220,0"
+                Click="pre_button_Click"
+                Content="Pre" />
+        <Button x:Name="next_button"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="220,0,0,0"
+                Click="next_button_Click"
+                Content="Next" />
 
     </Grid>
 

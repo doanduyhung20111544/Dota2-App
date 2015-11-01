@@ -15,6 +15,9 @@ namespace Dota2_App.View
 {
     public partial class PlaylistPage : PhoneApplicationPage
     {
+        private string pre_page="";
+        private string next_page="";
+        YoutubeMethod ytb = new YoutubeMethod();
         public PlaylistPage()
         {
             InitializeComponent();
@@ -25,13 +28,15 @@ namespace Dota2_App.View
             // TODO: Prepare page for display here.
 
             //double width = Application.Current.RootVisual.RenderSize.Width - 20;
-            YoutubeMethod ytb = new YoutubeMethod();
+            
 
 
             await ytb.channelInfo();
-            gridlist_gridview.ItemsSource = await ytb.playlist_Channel();
+            gridlist_gridview.ItemsSource = await ytb.playlist_Channel(next_page);
             avatar_image.Source = new BitmapImage(new Uri(ytb.Channel_Avatar, UriKind.RelativeOrAbsolute));
             channelname_textblock.Text = ytb.Channel_Title;
+            pre_page = ytb.Pre_Page;
+            next_page = ytb.Next_Page;
         }
 
         private void gridlist_gridview_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,6 +49,29 @@ namespace Dota2_App.View
 
                 NavigationService.Navigate(new Uri("/View/PlaylistChannelPage.xaml?msg=" + myobject.Id, UriKind.Relative));
 
+            }
+        }
+
+        private async void next_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (next_page != null) 
+            {
+                gridlist_gridview.ItemsSource = null;
+                gridlist_gridview.ItemsSource = await ytb.playlist_Channel(next_page);
+                pre_page = ytb.Pre_Page;
+                next_page = ytb.Next_Page;
+            }
+            
+        }
+
+        private async void pre_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (pre_page != null)
+            {
+                gridlist_gridview.ItemsSource = null;
+                gridlist_gridview.ItemsSource = await ytb.playlist_Channel(pre_page);
+                pre_page = ytb.Pre_Page;
+                next_page = ytb.Next_Page;
             }
         }
 
